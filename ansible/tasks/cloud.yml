@@ -27,7 +27,7 @@
   no_log: true
 - name: Fetch official pinned applications
   ansible.builtin.command:
-    argv: [/usr/local/lib/mail-cloud/fetch, '{{ item.url }}', '{{ item.id }}', signature, '{{ nc }}/custom_apps/{{ item.id }}']
+    argv: [/usr/local/lib/mail-cloud/fetch, '{{ item.url }}', '{{ item.id }}', '{{ item.sha256 }}', '{{ nc }}/custom_apps/{{ item.id }}']
     creates: '{{ nc }}/custom_apps/{{ item.id }}/appinfo/info.xml'
   loop: '{{ apps }}'
 - name: Check app signatures before running application code

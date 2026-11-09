@@ -1,3 +1,5 @@
+> Historical v1.0 evidence (Nextcloud 34). For the v1.1 source refresh and its verification limits, see [release-1.1.md](release-1.1.md). No previous live PASS is transferred to v1.1.
+
 # Coverage: specs/bootstrap.md
 
 **Original Ubuntu acceptance baseline:** `2c25cd1ef3f152d14f9a7602cae20ac74a84496d`; [Ubuntu-native and offline CI](https://github.com/kaiser1919-ai/mail-cloud-office/actions/runs/39220165998), all3jobsSUCCESS,64unit tests. Current wizard/SWAP UX follow-up changes are verified separately below; the published Ubuntu v1.0.0 tag remains unchanged.

@@ -1,0 +1,105 @@
+{
+  "checked_on": "2026-11-09",
+  "releases": {
+    "server": {
+      "tag": "v35.0.2",
+      "release_api": "https://api.github.com/repos/nextcloud/server/releases/tags/v35.0.2",
+      "published_at": "2026-10-15T08:10:30Z",
+      "url": "https://download.nextcloud.com/server/releases/nextcloud-35.0.2.tar.bz2",
+      "sha256": "dfc7955eaec5621de90e031d10f76006173b3f3e31d5d6e174821d1da14f162d",
+      "draft": false,
+      "prerelease": false,
+      "version_php": "<?php \n$OC_Version = array(35,0,2,2);\n$OC_VersionString = '35.0.2';\n$OC_Edition = '';\n$OC_Channel = 'stable';\n$OC_VersionCanBeUpgradedFrom = array (\n  'nextcloud' => \n  array (\n    '34.0' => true,\n    '35.0' => true,\n  ),\n  'owncloud' => \n  array (\n    '10.13' => true,\n    '10.14' => true,\n    '10.15' => true,\n    '10.16' => true,\n  ),\n);\n$OC_Build = '2026-10-15T08:07:55+00:00 ba900af933e61ffa005315b09d6454bfbbcbcc81';\n$vendor = 'nextcloud';\n",
+      "php_versioncheck": "<?php\n\ndeclare(strict_types=1);\n/**\n * SPDX-FileCopyrightText: 2017 Nextcloud GmbH and Nextcloud contributors\n * SPDX-License-Identifier: AGPL-3.0-or-later\n */\n// Show warning if a PHP version below 8.3 is used,\nif (PHP_VERSION_ID < 80300) {\n\thttp_response_code(500);\n\techo 'This version of Nextcloud requires at least PHP 8.3<br/>';\n\techo 'You are currently running ' . PHP_VERSION . '. Please update your PHP version.';\n\texit(1);\n}\n\n// Show warning if >= PHP 8.6 is used as Nextcloud is not compatible with >= PHP 8.6 for now\nif (PHP_VERSION_ID >= 80600) {\n\thttp_response_code(500);\n\techo 'This version of Nextcloud is not compatible with PHP>=8.6.<br/>';\n\techo 'You are currently running ' . PHP_VERSION . '.';\n\texit(1);\n}\n",
+      "bundled_apps": {
+        "user_ldap": "2.0.0",
+        "twofactor_totp": "17.1.0",
+        "twofactor_backupcodes": "2.0.0"
+      }
+    },
+    "mail": {
+      "tag": "v5.13.1",
+      "release_api": "https://api.github.com/repos/nextcloud-releases/mail/releases/latest",
+      "published_at": "2026-11-03T12:08:12Z",
+      "url": "https://github.com/nextcloud-releases/mail/releases/download/v5.13.1/mail-v5.13.1.tar.gz",
+      "sha256": "641dc4f9b48a800384d65da59d5a87df0e77b71d96a97aecfb9cd7e1e3b188c9",
+      "draft": false,
+      "prerelease": false,
+      "dependencies": {
+        "php": {
+          "min-version": "8.1",
+          "max-version": "8.5"
+        },
+        "nextcloud": {
+          "min-version": "32",
+          "max-version": "35"
+        }
+      },
+      "signature_present": true
+    },
+    "calendar": {
+      "tag": "v6.6.5",
+      "release_api": "https://api.github.com/repos/nextcloud-releases/calendar/releases/latest",
+      "published_at": "2026-11-05T14:58:20Z",
+      "url": "https://github.com/nextcloud-releases/calendar/releases/download/v6.6.5/calendar-v6.6.5.tar.gz",
+      "sha256": "e3afbc2a10db87920f5347279423422411010550a809b2902c0e8cf2f2492107",
+      "draft": false,
+      "prerelease": false,
+      "dependencies": {
+        "php": {
+          "min-version": "8.1",
+          "max-version": "8.5"
+        },
+        "nextcloud": {
+          "min-version": "32",
+          "max-version": "35"
+        },
+        "backend": {}
+      },
+      "signature_present": true
+    },
+    "richdocuments": {
+      "tag": "v12.0.1",
+      "release_api": "https://api.github.com/repos/nextcloud-releases/richdocuments/releases/latest",
+      "published_at": "2026-09-29T18:03:09Z",
+      "url": "https://github.com/nextcloud-releases/richdocuments/releases/download/v12.0.1/richdocuments-v12.0.1.tar.gz",
+      "sha256": "0639ab0e3413142a76334af20ca88cba0a351a11c9c07effa0f1eb7f05941f2c",
+      "draft": false,
+      "prerelease": false,
+      "dependencies": {
+        "php": {
+          "min-version": "8.3"
+        },
+        "nextcloud": {
+          "min-version": "35",
+          "max-version": "35"
+        }
+      },
+      "signature_present": true
+    },
+    "richdocumentscode": {
+      "tag": "26.4.502",
+      "release_api": "https://api.github.com/repos/CollaboraOnline/richdocumentscode/releases/latest",
+      "published_at": "2026-10-23T15:15:13Z",
+      "url": "https://github.com/CollaboraOnline/richdocumentscode/releases/download/26.4.502/richdocumentscode.tar.gz",
+      "sha256": "2879240a8f2b07e629f82d2a322dd23755ff7d9afdefbd470a831e91a15df51c",
+      "draft": false,
+      "prerelease": false,
+      "dependencies": {
+        "nextcloud": {
+          "min-version": "30",
+          "max-version": "35"
+        },
+        "architecture": {}
+      },
+      "signature_present": true
+    }
+  },
+  "server_stable_source": "https://nextcloud.com/changelog/",
+  "note": "Server stable selection uses the official changelog, not the server repository latest API (which points at an older maintained branch). App releases use publisher latest APIs plus App Store stable channels. SHA256 was computed on downloaded archives; server hash also matches the official checksum file. App signature presence is not cryptographic verification; installer still runs occ integrity:check-app before enabling apps.",
+  "ci_components": {
+    "actions/checkout": "v7.0.1",
+    "actions/setup-python": "v7.1.0",
+    "ansible-core": "2.22.0"
+  }
+}

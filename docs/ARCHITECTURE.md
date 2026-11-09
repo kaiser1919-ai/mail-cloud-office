@@ -1,6 +1,6 @@
 # Architecture / Архитектура
 
-This describes the portable source configuration, not a claim that every production scenario has been tested. See [the acceptance report](../reports/spec-review.md) for actual evidence and limits.
+This describes the portable source configuration, not a claim that every production scenario has been tested. See [the v1.1 source-refresh report](../reports/release-1.1.md) for current evidence and limits; [v1.0 acceptance](../reports/spec-review.md) is historical.
 
 ## Request and identity paths
 

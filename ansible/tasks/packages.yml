@@ -3,7 +3,8 @@
   ansible.builtin.apt:
     lock_timeout: 600
     update_cache: true
-    cache_valid_time: 3600
+    cache_valid_time: 0
+    state: latest
     policy_rc_d: 101
     install_recommends: false
     name:

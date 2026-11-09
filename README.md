@@ -7,45 +7,47 @@
 On a **new clean VPS**, from a root shell (Git and Python3 must be installed):
 
 ```bash
-git clone --branch v1.0.0 --depth 1 https://github.com/kaiser1919-ai/mail-cloud-office.git
+git clone --branch v1.1.0 --depth 1 https://github.com/kaiser1919-ai/mail-cloud-office.git
 cd mail-cloud-office
 bash install.sh
 ```
 
-[**v1.0.0 — one release for Ubuntu 24.04 and Debian 13**](https://github.com/kaiser1919-ai/mail-cloud-office/releases/tag/v1.0.0). The same wizard detects the OS automatically. The command pins the tested release rather than the changing `main` branch. Earlier OS-specific releases are historical snapshots.
+[**v1.1.0 — one release for Ubuntu 24.04 and Debian 13**](https://github.com/kaiser1919-ai/mail-cloud-office/releases/tag/v1.1.0). The same wizard detects the OS automatically. The command pins this source release rather than the changing `main` branch. Earlier OS-specific releases are historical snapshots.
 
 ## Minimum server requirements
 
-- Ubuntu24.04 LTS **or Debian13**, amd64, systemd and root. Both profiles passed separate clean test-VPS installations.
+- Ubuntu24.04 LTS **or Debian13**, amd64, systemd and root. Both OS profiles were live-tested for v1.0; the refreshed v1.1 stack needs new clean-VPS acceptance.
 - Approximately **2GiB RAM + 4GiB SWAP**;4+GiB RAM preferable for Office. If swap is insufficient, the wizard explains it and offers to create the missing amount with separate consent. Existing swap is never disabled.
 - Free space on `/srv`: **pool size +25GiB after swap preparation**, default105GiB for an80GiB raw pool; up to4GiB additional disk space if swap must be created. Raw image capacity is not usable ext4 capacity.
 - A domain, static public IPv4, DNS and provider PTR control.
 - Inbound TCP80/443/25/587/993, outbound TCP25/HTTPS; native package repositories, GitHub, Nextcloud and ACME reachable. Firewall and SSH are not disabled.
 - **Not an existing mail/database/web server.** Foreign stacks, occupied ports or insufficient reserves cause refusal.
 
-> **Ubuntu24.04 and Debian13 test-VPS acceptance passed.** Clean install, full rerun, reboot, mail/privacy checks and native Office save/reopen passed, including bounded concurrent cloud/mail load. This is not a general production-security or deliverability certification. Use only a new clean VPS; prepare independent backup and owner MFA before real data. [Debian13 evidence](reports/debian-13-acceptance.md). [Evidence and limits](reports/spec-review.md).
+> **v1.1.0 is a stable-component source refresh, not a new live-VPS acceptance certificate.** Versions and upstream compatibility are verified; local regressions/CI are recorded in [the v1.1 report](reports/release-1.1.md). Clean install, reboot and browser Mail/Office checks from v1.0 are historical and do not validate the new NC35 stack. Re-test on a clean VPS, prepare independent backup and owner MFA before real data. [Historical Debian13 evidence](reports/debian-13-acceptance.md).
 
 One terminal wizard asks for a domain, public IPv4, ACME contact email, mailbox count and each login. It generates secrets and installs a native stack using Ansible on localhost. You do not need to write an inventory or install Ansible yourself: the wizard obtains `ansible-core` from the native OS repository.
 
 ## Stack
 
-- Nextcloud **34.0.4**, Mail **5.12.4**, Calendar **6.6.2**; one browser portal.
-- Nextcloud Office **richdocuments 11.1.2** and built-in Collabora CODE **26.4.402**, supervised separately by systemd.
+- Nextcloud **35.0.2**, Mail **5.13.1**, Calendar **6.6.5**; one browser portal.
+- Nextcloud Office **richdocuments 12.0.1** and built-in Collabora CODE **26.4.502**, supervised separately by systemd.
 - Private OpenLDAP: shared cloud/mail identities and passwords. Mail captures the current user's credential through its native login middleware; no shared master password. This is not cross-domain OIDC/SSO.
 - Postfix, Dovecot **2.3 on Ubuntu / 2.4 on Debian**, Rspamd, mandatory DKIM/milter and **50 outgoing attempts/hour/account**.
 - PHP **8.3 on Ubuntu / 8.4 on Debian** FPM, MariaDB, APCu, separate cloud/mail Redis instances, Nginx and Certbot.
 - A physically reserved shared ext4 image for files/mail/queue/mail-Redis, separate 2 GiB disk staging, a read-only real-capacity indicator.
 
-No Docker, AIO or Mailcow. The separate local `recovery_admin` is not a mailbox. Application versions intentionally reproduce the original setup, **not a claim that these are the latest or indefinitely supported**. Review upstream security advisories/support and test upgrades before production. OS packages come from signed native Ubuntu/Debian repositories including security updates; actual versions are recorded in `/srv/mail-cloud/state/packages.tsv`.
+No Docker, AIO or Mailcow. The separate local `recovery_admin` is not a mailbox. Application versions are the official stable releases checked on **2026-11-09**, pinned in `components.json` with verified artifact SHA256 hashes; stability is not an indefinite security guarantee. Review upstream security advisories/support and test upgrades before production. OS packages select the newest available candidates from signed native Ubuntu/Debian stable/security repositories on each installer run (not arbitrary upstream majors); actual versions are recorded in `/srv/mail-cloud/state/packages.tsv`.
+
+**Not an upgrade command:** v1.1 refuses existing core/apps with different versions before package/service changes. Do not run it over v1.0. Keep using the original release for same-version resume/checks; plan an independently backed-up, tested Nextcloud upgrade separately. Same-v1.1 interrupted installs remain resumable. The bundled LDAP/TOTP/backup-code apps follow the pinned core; the local capacity app is `sentinel_pool 0.2.0` (NC34–35 metadata).
 
 ## Automatic OS profiles
 
 | OS | PHP/FPM | Dovecot | Actual verification |
 |---|---|---|---|
-| **Ubuntu 24.04 LTS** | **8.3** | **2.3**, native separate LDAP/TLS config | Install / rerun / reboot / Mail / Office — PASS |
-| Debian 13 | 8.4 | 2.4, separate new-syntax template | Install / rerun / reboot / Mail / Office — PASS |
+| **Ubuntu 24.04 LTS** | **8.3** | **2.3**, native separate LDAP/TLS config | v1.0 live PASS; v1.1 local/CI only |
+| Debian 13 | 8.4 | 2.4, separate new-syntax template | v1.0 live PASS; v1.1 local/CI only |
 
-No additional OS-selection prompt: detection is automatic. Ubuntu **Universe** is enabled through the standard repository tool when necessary; no third-party PPA or distribution upgrade is added. The pinned Nextcloud34.0.4 metadata permits PHP8.3. All PHP helpers, FPM and cron use the chosen runtime rather than the system alternative. AppArmor is preserved: local LDAP path rules and a CODE-AppImage-only user namespace allowance, never a global sysctl disable. The targeted policies were loaded on the real test kernel and Office executed successfully; no global AppArmor disable. Resume refuses OS/profile changes; this is not an in-place Debian-to-Ubuntu migration tool.
+No additional OS-selection prompt: detection is automatic. Ubuntu **Universe** is enabled through the standard repository tool when necessary; no third-party PPA or distribution upgrade is added. The pinned Nextcloud35.0.2 metadata permits PHP8.3. All PHP helpers, FPM and cron use the chosen runtime rather than the system alternative. AppArmor is preserved: local LDAP path rules and a CODE-AppImage-only user namespace allowance, never a global sysctl disable. The targeted policies were loaded on the real test kernel and Office executed successfully; no global AppArmor disable. Resume refuses OS/profile changes; this is not an in-place Debian-to-Ubuntu migration tool.
 
 ## Wizard parameters
 
@@ -96,7 +98,7 @@ Before production: clean install → rerun → reboot; two real isolated browser
 
 ```bash
 python3 -m venv .venv
-.venv/bin/pip install 'ansible-core>=2.19,<2.20' jinja2 pyyaml
+.venv/bin/pip install 'ansible-core==2.22.0' jinja2 pyyaml
 .venv/bin/python -m unittest discover -s tests -v
 .venv/bin/ansible-playbook -i localhost, -c local ansible/site.yml --syntax-check
 ```

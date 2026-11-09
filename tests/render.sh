@@ -11,6 +11,7 @@ from pathlib import Path
 key=sys.argv[1]
 profiles=json.loads(Path('platforms.json').read_text())['os_profiles']; p=profiles[key]
 v=yaml.safe_load(Path('ansible/site.yml').read_text())[0]['vars']
+v.update(json.loads(Path('components.json').read_text()))
 c=json.loads(Path('example.json').read_text()); c.update(cloud_host='disk.example.org',mail_host='mail.example.org')
 v.update(os_profiles=profiles,parameters=c,secrets={'ldap_mail':'synthetic-only'},platform={'key':key,**p},
          ansible_distribution=p['distribution'],ansible_distribution_version=p['version'],ansible_distribution_major_version=p['version'].split('.')[0],

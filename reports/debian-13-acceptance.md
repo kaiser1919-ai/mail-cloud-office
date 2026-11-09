@@ -1,3 +1,5 @@
+> Historical v1.0 evidence (Nextcloud 34). For the v1.1 source refresh and its verification limits, see [release-1.1.md](release-1.1.md). No previous live PASS is transferred to v1.1.
+
 # Debian 13 — real isolated VPS acceptance
 
 Date: 2026-10-19. Tested implementation: `a50802c64430abaea1c9689fcb3ac95e7fde1ac2` (final release documentation does not change runtime code).

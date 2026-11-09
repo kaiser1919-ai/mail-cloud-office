@@ -1,3 +1,5 @@
+> v1.1.0 pins Nextcloud35 and refreshed apps. It is for a new VPS / same-component-version resume, **not an upgrade of v1.0**. Use the original release to maintain the old installation; back up and plan a separately tested major upgrade. See [v1.1 evidence and limits](../reports/release-1.1.md). / v1.1 не запускать поверх v1.0: это не мигратор установленного сервера.
+
 # Эксплуатация / Operations
 
 ## RU: безопасный первый вход

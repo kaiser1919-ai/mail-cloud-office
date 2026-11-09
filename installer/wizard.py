@@ -17,6 +17,7 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'installer'))
 from swap_setup import prepare_swap
+from component_guard import validate_installed_components
 
 STATE = Path('/etc/mail-cloud-installer')
 GIB = 1024**3
@@ -211,10 +212,12 @@ def main():
     profile = detect_platform()
     if resume:
         validate_resume_platform(values, profile)
-        if 'platform' not in values:
-            values['platform'] = profile
-            atomic_json(stored, values)
     install = not (args.check or args.open_portal)
+    if install:
+        validate_installed_components()
+    if resume and 'platform' not in values:
+        values['platform'] = profile
+        atomic_json(stored, values)
     preflight(c, resume, args.test_low_headroom, require_swap=not install)
     if install:
         prepare_swap(disk_requirement(c['pool_gib'], resume, args.test_low_headroom))
@@ -232,7 +235,7 @@ def main():
         run(['apt-get', '-y', '--no-install-recommends', 'install', 'software-properties-common'])
         run(['add-apt-repository', '--yes', '--no-update', 'universe'])
         run(['apt-get', 'update'])
-    if not shutil.which('ansible-playbook'):
+    if install or not shutil.which('ansible-playbook'):
         run(['apt-get', 'update'])
         run(['apt-get', '-y', '--no-install-recommends', 'install', 'ansible-core'])
     phase = 'open' if args.open_portal else 'check' if args.check else 'install'

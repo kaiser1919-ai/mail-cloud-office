@@ -5,6 +5,7 @@
   gather_facts: true
   vars_files:
     - ../platforms.json
+    - ../components.json
   vars:
     platform_key: "{{ ansible_distribution | lower }}-{{ ansible_distribution_version if ansible_distribution == 'Ubuntu' else ansible_distribution_major_version }}"
     runtime_profile: "{{ os_profiles.get(platform_key, {}) }}"
@@ -14,14 +15,7 @@
     nc: /srv/mail-cloud/nextcloud
     c: '{{ parameters }}'
     suffix: "{{ parameters.domain.split('.') | map('regex_replace', '^(.*)$', 'dc=\\1') | join(',') }}"
-    nc_version: 34.0.4
-    nc_sha256: 00f226e6364f96e0918ab06157158f66601b8cedc25af777f5ee5a3056f42b83
     bootstrap_action: install
-    apps:
-      - {id: mail, version: 5.12.4, url: 'https://github.com/nextcloud-releases/mail/releases/download/v5.12.4/mail-v5.12.4.tar.gz'}
-      - {id: calendar, version: 6.6.2, url: 'https://github.com/nextcloud-releases/calendar/releases/download/v6.6.2/calendar-v6.6.2.tar.gz'}
-      - {id: richdocuments, version: 11.1.2, url: 'https://github.com/nextcloud-releases/richdocuments/releases/download/v11.1.2/richdocuments-v11.1.2.tar.gz'}
-      - {id: richdocumentscode, version: 26.4.402, url: 'https://github.com/CollaboraOnline/richdocumentscode/releases/download/26.4.402/richdocumentscode.tar.gz'}
   pre_tasks:
     - name: Enforce supported OS and privilege
       ansible.builtin.assert:

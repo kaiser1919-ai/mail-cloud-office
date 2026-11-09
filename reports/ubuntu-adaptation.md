@@ -1,3 +1,5 @@
+> Historical v1.0 evidence (Nextcloud 34). For the v1.1 source refresh and its verification limits, see [release-1.1.md](release-1.1.md). No previous live PASS is transferred to v1.1.
+
 # Ubuntu24.04 adaptation — native CI and real VPS evidence
 
 Owner-approved change, 2026-10-18: Ubuntu24.04 first; retain Debian13 profile but defer its native-server acceptance.

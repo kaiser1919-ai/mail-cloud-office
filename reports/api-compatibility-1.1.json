@@ -1,0 +1,23 @@
+{
+  "event": {
+    "source": "https://raw.githubusercontent.com/nextcloud/server/v35.0.2/lib/public/AppFramework/Http/Events/BeforeTemplateRenderedEvent.php",
+    "methods_present": [
+      "function isLoggedIn"
+    ]
+  },
+  "app_manager": {
+    "source": "https://raw.githubusercontent.com/nextcloud/server/v35.0.2/lib/public/App/IAppManager.php",
+    "methods_present": [
+      "function loadApps",
+      "function loadApp"
+    ]
+  },
+  "provisioning": {
+    "source": "https://raw.githubusercontent.com/nextcloud/mail/v5.13.1/lib/Service/Provisioning/Manager.php",
+    "methods_present": [
+      "function newProvisioning",
+      "function provisionSingleUser",
+      "function getConfigs"
+    ]
+  }
+}

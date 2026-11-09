@@ -106,6 +106,8 @@ bash install.sh --check
 
 ## Разработка
 
+Для разработки Ansible2.22 нужен **Python3.13+** (CI3.13/3.14); ниже запускай `python3` соответствующей версии. На VPS мастер использует штатные Ansible/Python своей ОС, не этот dev-pin.
+
 ```bash
 python3 -m venv .venv
 .venv/bin/pip install 'ansible-core==2.22.0' jinja2 pyyaml

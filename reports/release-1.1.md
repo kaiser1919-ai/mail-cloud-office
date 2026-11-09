@@ -34,7 +34,7 @@ Server35 requires PHP>=8.3,<8.6. Mail5.13.1 and Calendar6.6.5 allow NC32–35/PH
 - PASS: Ansible2.22.0 playbook syntax, 20 actual templates rendered for each OS (40 renders), shell syntax, Python compile.
 - PASS: real local HTTPS/Ansible URI fixture retries503 and non-XML, accepts discovery XML and rejects an untrusted certificate. Initial sandbox-only RPC socket refusal was resolved by running the isolated fixture with permitted local sockets, not by disabling verification.
 - PASS: all five downloaded archives pass pinned SHA256, real safe-extractor member/path/size checks and version metadata. All app file hashes match their signature manifests; signatures/certificates are present. This is not native `occ` certificate verification.
-- GitHub CI: PENDING source publication; report updated before release.
+- GitHub CI: first run exposed the Ansible2.22 controller requirement Python>=3.13; Python3.12 dev job was incompatible and3.13 was cancelled by matrix fail-fast. Corrected CI to3.13/3.14 and documented the development interpreter requirement. Native target Python/Ansible profiles remain unchanged. Await rerun before release.
 - NOT RUN: new clean-VPS installation/rerun/reboot, native `occ` app-signature verification, actual browser Mail/Office save/reopen, simultaneous load or restore with NC35. Artifact hash/signature-file checks do not replace `occ` cryptographic validation.
 
 **Historical v1.0 Ubuntu/Debian live PASS is not transferred to v1.1.** This stable-source refresh is not a claim of new live deployment acceptance, a security audit, deliverability certification, automatic upgrade or completed external backup. Prepare independent backup/MFA and test on a clean VPS before real data.

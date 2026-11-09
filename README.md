@@ -96,6 +96,8 @@ Before production: clean install → rerun → reboot; two real isolated browser
 
 ## Development
 
+Development Ansible2.22 requires **Python3.13+** (CI3.13/3.14). Use that interpreter for the venv below. The VPS installer uses its distribution-packaged Ansible/Python, not this development pin.
+
 ```bash
 python3 -m venv .venv
 .venv/bin/pip install 'ansible-core==2.22.0' jinja2 pyyaml
